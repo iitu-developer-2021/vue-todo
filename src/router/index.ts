@@ -1,16 +1,9 @@
-import { createRouter, createWebHistory } from "vue-router"
-import { h, resolveComponent} from "vue"
+import { createRouter, createWebHistory } from 'vue-router';
+import { mainRoutes } from '@/views/main/mainRoutes';
 
-const routes = [
-    {
-        path: '/',
-        component: {
-            render: () => h("<router-view />")
-        }
-    }
-]
+const routes = [...mainRoutes];
 
 export const router = createRouter({
-    history: createWebHistory(),
-    routes
-})
+  history: createWebHistory(),
+  routes,
+});

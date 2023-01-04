@@ -13,7 +13,8 @@ module.exports = {
     plugins: ["@typescript-eslint", "prettier"],
     rules: {
         "prettier/prettier": "error",
-        // not needed for vue 3
         "vue/no-multiple-template-root": "off",
+        "vue/no-v-for-template-key": "off",
+        "@typescript-eslint/ban-ts-comment": "off"
     },
 }
