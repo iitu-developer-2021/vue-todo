@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" v-bind="$attrs" class="button" :class="btnClasses">
+  <component :is="tag" v-bind="$attrs" class="button" :class="btnClasses" :style="btnStyles">
     <slot />
   </component>
 </template>
@@ -20,6 +20,14 @@ export default defineComponent({
         return ['green', 'gray'].includes(value);
       },
     },
+    width: {
+      type: String,
+      default: '100%',
+    },
+    height: {
+      type: String,
+      default: 'initial',
+    },
   },
   computed: {
     btnClasses() {
@@ -27,6 +35,12 @@ export default defineComponent({
       if (this.buttonType === 'green') classes.push('button--green');
       if (this.buttonType === 'gray') classes.push('button--gray');
       return classes;
+    },
+    btnStyles() {
+      return {
+        width: this.width,
+        height: this.height,
+      };
     },
   },
 });
@@ -42,15 +56,27 @@ export default defineComponent({
   text-align: center;
   letter-spacing: 0.15px;
   padding: 7px 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s all;
 
   &--green {
     background: $buttonDefaultBackgroundColor;
     color: $buttonDefaultTextColor;
+
+    &:hover {
+      background: lighten($buttonDefaultBackgroundColor, 3%);
+    }
   }
 
   &--gray {
     background: $buttonSecondaryBackgroundColor;
     color: $buttonSecondaryTextColor;
+
+    &:hover {
+      background: lighten($buttonSecondaryBackgroundColor, 3%);
+    }
   }
 }
 </style>

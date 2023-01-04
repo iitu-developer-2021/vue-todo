@@ -1,7 +1,7 @@
 <template>
   <component :is="tag" class="task-item" :class="{ 'task-item--deletable': deletable }">
     <slot>
-      <div class="task-item__color" :style="taskColorStyle" />
+      <TaskColor class="task-item__color" :color="color" />
     </slot>
     <p class="task-item__text">{{ name }}</p>
     <button class="task-item__delete" @click="$emit('deleteTask')">
@@ -11,8 +11,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { TASK_ITEM_COLORS } from '@/layouts/layout-parts/components/task/consts/taskItemColors';
 import type { TaskItemColorKeys } from '@/layouts/layout-parts/components/task/consts/taskItemColors';
+import TaskColor from '@/layouts/layout-parts/components/task/TaskColor.vue';
 
 export default defineComponent({
   props: {
@@ -33,14 +33,8 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props) {
-    const taskColor = TASK_ITEM_COLORS[props.color];
-    const taskColorStyle = {
-      background: taskColor,
-    };
-    return {
-      taskColorStyle,
-    };
+  components: {
+    TaskColor,
   },
 });
 </script>

@@ -4,10 +4,12 @@
       <BaseSvgIcon name="plus" width="10px" height="10px" color="#868686" />
       <span>{{ text }}</span>
     </button>
+    <TaskAddPanel class="add-task__panel" />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import TaskAddPanel from '@/layouts/layout-parts/components/task/TaskAddPanel.vue';
 
 export default defineComponent({
   props: {
@@ -16,11 +18,14 @@ export default defineComponent({
       default: 'Добавить папку',
     },
   },
+  components: {
+    TaskAddPanel,
+  },
 });
 </script>
 <style lang="scss" scoped>
 .add-task {
-  cursor: pointer;
+  position: relative;
 
   &__btn {
     border: none;
@@ -47,6 +52,12 @@ export default defineComponent({
       background: #fff;
       border-radius: 3px;
     }
+  }
+
+  &__panel {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
   }
 }
 </style>
