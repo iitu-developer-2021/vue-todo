@@ -11,6 +11,7 @@ import type { UseLayout } from './composables/useLayoutFactory';
 import type { PropType } from 'vue';
 
 export default defineComponent({
+  name: 'LayoutTemplate',
   props: {
     useLayout: {
       type: Function as PropType<UseLayout>,

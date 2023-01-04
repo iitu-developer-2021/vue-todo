@@ -1,22 +1,27 @@
 <template>
-  <div class="sidebar">Sidebar</div>
+  <div class="sidebar">
+    <TaskList :tasks="tasks" />
+    <TaskAdd />
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TaskList from '@/components/common/task/TaskList.vue';
+import TaskList from '@/layouts/layout-parts/components/task/TaskList.vue';
+import TaskAdd from '@/layouts/layout-parts/components/task/TaskAdd.vue';
+import { Task } from '@/layouts/layout-parts/components/task/types/task';
 
 export default defineComponent({
   setup() {
-    const tasks = [
+    const tasks: Task[] = [
       {
-        id: 1,
+        id: '1',
         color: 'red',
-        text: 'Frontend some text',
+        name: 'Frontend development',
       },
       {
-        id: 2,
-        color: 'green',
-        text: 'Frontend some text seconds',
+        id: '1',
+        color: 'pink',
+        name: 'Frontend development and test',
       },
     ];
     return {
@@ -25,6 +30,7 @@ export default defineComponent({
   },
   components: {
     TaskList,
+    TaskAdd,
   },
 });
 </script>
@@ -33,6 +39,5 @@ export default defineComponent({
   background: $sidebarDefaultBackground;
   height: 100%;
   padding: 56px 20px;
-  overflow-y: auto;
 }
 </style>

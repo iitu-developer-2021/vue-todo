@@ -23,8 +23,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
-import TaskItem from '@/layouts/layout-parts/components/TaskItem.vue';
-import type { Task } from '@/layouts/layout-parts/components/task.types';
+import TaskItem from '@/layouts/layout-parts/components/task/TaskItem.vue';
+import type { Task } from '@/layouts/layout-parts/components/task/types/task';
 
 export default defineComponent({
   props: {

@@ -2,11 +2,22 @@
   <div class="add-task">
     <button class="add-task__btn">
       <BaseSvgIcon name="plus" width="10px" height="10px" color="#868686" />
-      <span>Добавить папку</span>
+      <span>{{ text }}</span>
     </button>
   </div>
 </template>
-<script lang="ts"></script>
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  props: {
+    text: {
+      type: String,
+      default: 'Добавить папку',
+    },
+  },
+});
+</script>
 <style lang="scss" scoped>
 .add-task {
   cursor: pointer;
@@ -27,8 +38,8 @@
       font-size: 14px;
       line-height: 17px;
       letter-spacing: 0.15px;
-      color: $taskItemAddBtnColor;
       margin-left: 10px;
+      color: $taskItemAddBtnColor;
     }
 
     &:hover {
