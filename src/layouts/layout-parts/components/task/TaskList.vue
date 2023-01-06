@@ -5,7 +5,6 @@
         <BaseSvgIcon name="list" width="12px" height="12px" />
       </TaskItem>
     </ul>
-
     <ul class="task-list task-list--items">
       <TaskItem
         v-for="task in tasks"
@@ -13,35 +12,26 @@
         :color="task.color"
         :name="task.name"
         tag="li"
-        @deleteTask="onDeleteTask(task)"
-        deletable
         class="task-list__item"
+        deletable
       />
     </ul>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import type { PropType } from 'vue';
 import TaskItem from '@/layouts/layout-parts/components/task/TaskItem.vue';
-import type { Task } from '@/layouts/layout-parts/components/task/types/task';
+import { useTaskList } from '@/layouts/layout-parts/components/task/composables/useTaskList';
 
 export default defineComponent({
-  props: {
-    tasks: {
-      type: Array as PropType<Array<Task>>,
-      default: () => [],
-    },
-  },
-  emits: {
-    deleteTask({ id, color, name }: Task) {
-      return !(!id || !color || !name);
-    },
-  },
-  methods: {
-    onDeleteTask(task: Task) {
-      this.$emit('deleteTask', task);
-    },
+  async setup() {
+    const { tasks, fetchTasks } = useTaskList();
+
+    await fetchTasks();
+
+    return {
+      tasks,
+    };
   },
   components: {
     TaskItem,
@@ -54,7 +44,7 @@ export default defineComponent({
   max-height: 100px;
 
   &--items {
-    max-height: 100px;
+    max-height: 350px;
     overflow-y: auto;
   }
 

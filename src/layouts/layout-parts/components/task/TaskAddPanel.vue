@@ -1,6 +1,11 @@
 <template>
   <div class="task-panel">
-    <BaseInput placeholder="Название папки" class="task-panel__input" />
+    <BaseInput
+      placeholder="Название папки"
+      class="task-panel__input"
+      :value="taskName"
+      @input="taskName = $event.target.value"
+    />
     <BaseSvgIcon name="close" class="task-panel__close" width="25px" height="25px" />
     <div class="task-panel__colors">
       <TaskColor
@@ -12,18 +17,34 @@
         is-cursor-pointer
       />
     </div>
-    <BaseButton>Добавить</BaseButton>
+    <BaseButton @click="onAddTask">Добавить</BaseButton>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { TASK_ITEM_COLORS } from '@/layouts/layout-parts/components/task/consts/taskItemColors';
 import TaskColor from '@/layouts/layout-parts/components/task/TaskColor.vue';
+import { useTaskList } from '@/layouts/layout-parts/components/task/composables/useTaskList';
+import { getRandomUUID } from '@/layouts/helpers/generateRandomUID';
+import { ref, unref } from 'vue';
 
 export default defineComponent({
   setup() {
+    const { addTask } = useTaskList();
+    const taskName = ref('');
+
+    const onAddTask = () => {
+      addTask({
+        id: getRandomUUID(),
+        name: taskName.value,
+        color: 'red',
+      });
+    };
+
     return {
       TASK_ITEM_COLORS,
+      onAddTask,
+      taskName,
     };
   },
   components: {

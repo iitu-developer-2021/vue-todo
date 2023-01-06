@@ -1,10 +1,15 @@
 <template>
-  <component :is="tag" class="task-item" :class="{ 'task-item--deletable': deletable }">
+  <component
+    :is="tag"
+    class="task-item"
+    :class="{ 'task-item--deletable': deletable }"
+    @click.prevent="$emit('chooseTask')"
+  >
     <slot>
       <TaskColor class="task-item__color" :color="color" />
     </slot>
     <p class="task-item__text">{{ name }}</p>
-    <button class="task-item__delete" @click="$emit('deleteTask')">
+    <button class="task-item__delete" @click.prevent="$emit('deleteTask')">
       <BaseSvgIcon name="only-close" width="12px" height="12px" />
     </button>
   </component>

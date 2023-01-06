@@ -1,5 +1,5 @@
 <template>
-  <div class="task-color" :style="taskColorStyle" />
+  <component :is="tag" class="task-color" :style="taskColorStyle" />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -9,6 +9,10 @@ import { TASK_ITEM_COLORS } from '@/layouts/layout-parts/components/task/consts/
 
 export default defineComponent({
   props: {
+    tag: {
+      type: String,
+      default: 'div',
+    },
     color: {
       type: String as PropType<TaskItemColorKeys>,
       default: 'gray',
