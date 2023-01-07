@@ -1,8 +1,8 @@
 import { ref } from 'vue';
 import * as taskApi from '@/api/tasks';
-import type { Task } from '@/layouts/layout-parts/components/task/types/task';
+import type { Task } from '@/layouts/components/task/types/task';
 import { useToast } from 'vue-toastification';
-import { getRandomUUID } from '@/layouts/helpers/generateRandomUID';
+import { getRandomUUID } from '@/helpers/generateRandomUID';
 
 const toast = useToast();
 const tasks = ref<Task[]>([]);

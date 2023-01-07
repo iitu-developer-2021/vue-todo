@@ -29,8 +29,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, watchEffect } from 'vue';
-import { TASK_ITEM_COLORS } from '@/layouts/layout-parts/components/task/consts/taskItemColors';
-import TaskColor from '@/layouts/layout-parts/components/task/TaskColor.vue';
+import { TASK_ITEM_COLORS } from '@/layouts/components/task/consts/taskItemColors';
+import TaskColor from '@/layouts/components/task/components/TaskColor.vue';
 
 export default defineComponent({
   props: {

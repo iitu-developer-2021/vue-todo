@@ -18,9 +18,9 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useToggleState } from '@/composables/useToggleState';
-import { useTaskList } from '@/layouts/layout-parts/components/task/composables/useTaskList';
+import { useTaskList } from '@/layouts/components/task/composables/useTaskList';
 import { useOutsideClick } from '@/composables/useOutsideClick';
-import TaskAddPanel from '@/layouts/layout-parts/components/task/TaskAddPanel.vue';
+import TaskAddPanel from '@/layouts/components/task/components/TaskAddPanel.vue';
 import type { Ref } from 'vue';
 
 export default defineComponent({

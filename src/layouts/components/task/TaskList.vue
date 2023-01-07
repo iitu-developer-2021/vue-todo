@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="task-list">
-      <TaskItem name="Все задачи" class="task-list__all" v-if="tasks && tasks.length > 0">
+      <TaskItem name="Все задачи" class="task-list__all" v-if="tasks && tasks.length > 0" to="/main/all">
         <BaseSvgIcon name="list" width="12px" height="12px" />
       </TaskItem>
     </ul>
@@ -11,6 +11,7 @@
         :key="task.id"
         :color="task.color"
         :name="task.name"
+        :to="'/main/' + task.id"
         tag="li"
         class="task-list__item"
         @deleteTask="fetchDeleteTask(task.id)"
@@ -22,8 +23,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TaskItem from '@/layouts/layout-parts/components/task/TaskItem.vue';
-import { useTaskList } from '@/layouts/layout-parts/components/task/composables/useTaskList';
+import TaskItem from '@/layouts/components/task/components/TaskItem.vue';
+import { useTaskList } from '@/layouts/components/task/composables/useTaskList';
 
 export default defineComponent({
   async setup() {

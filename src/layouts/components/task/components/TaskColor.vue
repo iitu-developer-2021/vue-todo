@@ -4,8 +4,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
-import type { TaskItemColorKeys } from '@/layouts/layout-parts/components/task/consts/taskItemColors';
-import { TASK_ITEM_COLORS } from '@/layouts/layout-parts/components/task/consts/taskItemColors';
+import type { TaskItemColorKeys } from '@/layouts/components/task/consts/taskItemColors';
+import { TASK_ITEM_COLORS } from '@/layouts/components/task/consts/taskItemColors';
 
 export default defineComponent({
   props: {

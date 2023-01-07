@@ -34,11 +34,12 @@
   }
 
   &__aside {
-    flex: 0 0 250px;
+    width: 250px;
   }
 
   &__main {
     flex: 1;
+    overflow-y: auto;
   }
 }
 </style>

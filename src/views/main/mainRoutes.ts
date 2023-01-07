@@ -8,14 +8,14 @@ export const mainRoutes: RouteRecordRaw[] = [
   {
     name: 'Main',
     path: '/',
-    redirect: '/main',
+    redirect: '/main/all',
     component: {
       render: () => h(resolveComponent('router-view')),
     },
     children: [
       {
         name: 'MainPage',
-        path: 'main',
+        path: '/main/:id',
         component: loadView('MainPage'),
       },
     ],

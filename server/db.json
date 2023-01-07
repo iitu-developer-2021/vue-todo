@@ -6,9 +6,37 @@
       "color": "lightGreen"
     },
     {
-      "id": "luv61xz21hg01831nidvnhg",
-      "name": "Backend App test",
-      "color": "red"
+      "id": "40o0pwna0oshoabrkffd8s",
+      "name": "Frontend app ",
+      "color": "pink"
+    },
+    {
+      "id": "pi2jmkw3u7rs5j8afljw",
+      "name": "My frontend app test",
+      "color": "pink"
+    },
+    {
+      "id": "ff2oqeqt2t870trgflyo3w",
+      "name": "TaskApp",
+      "color": "violet"
+    },
+    {
+      "id": "rp4n5miqdib0mzh2rp5l0cm",
+      "name": "ghgl",
+      "color": "blue"
+    },
+    {
+      "id": "2mtjuj0xnvy7e1ijkvo677",
+      "name": "My app",
+      "color": "violet"
+    }
+  ],
+  "taskItems": [
+    {
+      "id": 1,
+      "done": true,
+      "text": "Купить какие то штуки",
+      "taskId": "48qwck91umfv1o1mhj79fs"
     }
   ]
 }
