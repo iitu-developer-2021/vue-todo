@@ -16,20 +16,13 @@ import { BaseLayout, useBaseLayout } from '@/layouts/composables/useBaseLayout.j
 import LayoutSidebar from '@/layouts/LayoutSidebar.vue';
 import TaskDetailComponent from '@/views/main/components/TaskDetail.vue';
 import { useTaskDetail } from '@/views/main/composables/useTaskDetail';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
   async setup() {
     const { LAYOUTS, setLayout } = useBaseLayout();
     const { taskDetails, fetchTaskDetails, fetchTaskDetailsLoading } = useTaskDetail();
     const route = useRoute();
-    const router = useRouter();
-    const id = route.params.id;
-
-    if (!id)
-      return router.push({
-        name: 'MainPage',
-      });
 
     watch(
       () => route.params.id,
