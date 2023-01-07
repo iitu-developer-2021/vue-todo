@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="task-list">
-      <TaskItem name="Все задачи" class="task-list__all">
+      <TaskItem name="Все задачи" class="task-list__all" v-if="tasks && tasks.length > 0">
         <BaseSvgIcon name="list" width="12px" height="12px" />
       </TaskItem>
     </ul>
@@ -13,6 +13,8 @@
         :name="task.name"
         tag="li"
         class="task-list__item"
+        @deleteTask="fetchDeleteTask(task.id)"
+        :loading="fetchDeleteTaskLoadingList.includes(task.id)"
         deletable
       />
     </ul>
@@ -25,12 +27,13 @@ import { useTaskList } from '@/layouts/layout-parts/components/task/composables/
 
 export default defineComponent({
   async setup() {
-    const { tasks, fetchTasks } = useTaskList();
-
+    const { tasks, fetchTasks, fetchDeleteTask, fetchDeleteTaskLoadingList } = useTaskList();
     await fetchTasks();
 
     return {
       tasks,
+      fetchDeleteTask,
+      fetchDeleteTaskLoadingList,
     };
   },
   components: {

@@ -26,6 +26,10 @@ export default defineComponent({
       letter-spacing: 0.15px;
       color: #c7c7c7;
     }
+
+    &:focus {
+      border: 1px solid #a6e2f6;
+    }
   }
 }
 </style>

@@ -1,13 +1,16 @@
 <template>
   <component :is="tag" v-bind="$attrs" class="button" :class="btnClasses" :style="btnStyles">
-    <slot />
+    <slot v-if="!loading" />
+    <BaseLoader v-else width="30px" height="30px" inner />
   </component>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
+import BaseLoader from '@/components/base/BaseLoader.vue';
 
 export default defineComponent({
+  components: { BaseLoader },
   props: {
     tag: {
       type: String,
@@ -26,7 +29,11 @@ export default defineComponent({
     },
     height: {
       type: String,
-      default: 'initial',
+      default: '40px',
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -34,6 +41,7 @@ export default defineComponent({
       const classes = [];
       if (this.buttonType === 'green') classes.push('button--green');
       if (this.buttonType === 'gray') classes.push('button--gray');
+      if (this.loading) classes.push('button--loading');
       return classes;
     },
     btnStyles() {
@@ -60,6 +68,9 @@ export default defineComponent({
   border: none;
   cursor: pointer;
   transition: 0.3s all;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &--green {
     background: $buttonDefaultBackgroundColor;
@@ -67,6 +78,11 @@ export default defineComponent({
 
     &:hover {
       background: lighten($buttonDefaultBackgroundColor, 3%);
+    }
+
+    &:disabled {
+      background: lighten($buttonDefaultBackgroundColor, 9%);
+      cursor: not-allowed;
     }
   }
 
@@ -77,6 +93,16 @@ export default defineComponent({
     &:hover {
       background: lighten($buttonSecondaryBackgroundColor, 3%);
     }
+
+    &:disabled {
+      background: lighten($buttonSecondaryBackgroundColor, 9%);
+      cursor: not-allowed;
+    }
+  }
+
+  &--loading {
+    cursor: none;
+    pointer-events: none;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" class="task-color" :style="taskColorStyle" />
+  <component :is="tag" class="task-color" :style="taskColorStyle" :class="{ 'task-color--active': isActive }" />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -29,6 +29,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props) {
     const taskColorStyle = {
@@ -48,5 +52,9 @@ export default defineComponent({
   width: 10px;
   height: 10px;
   border-radius: 20px;
+
+  &--active {
+    border: 2px solid #525252;
+  }
 }
 </style>

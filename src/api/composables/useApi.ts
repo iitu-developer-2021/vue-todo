@@ -4,20 +4,26 @@ import type { Ref } from 'vue';
 import { apiStatusFactory } from '@/api/consts/apiStatusFactory';
 import { apiStatuses } from '@/api/consts/apiStatuses';
 import type { ApiStatusValues, ApiStatusKeys } from '@/api/consts/apiStatuses';
-import type { CustomFunction } from '@/types';
 
 type UpperFirstApiStatusKeys = Capitalize<Lowercase<ApiStatusKeys>>;
 type ApiStatusFactory<T extends string> = `${T}${UpperFirstApiStatusKeys}`;
 
 const { PENDING, IDLE, SUCCESS, FAILED } = apiStatuses;
 
-export const useApi = <Type extends string, DataType = any>(
-  apiName: Type,
-  fn: CustomFunction<any, Promise<DataType>>,
-  config: { defaultData?: DataType; responseAdapter?: CustomFunction<any, DataType>; throwError?: boolean } = {},
+interface UseApiConfig<T> {
+  defaultData?: T;
+  responseAdapter?: (response: any) => any;
+  successCallback?: (data: T, passedArgs: any) => void;
+  failedCallback?: (e: Error) => void;
+}
+
+export const useApi = <T extends string, F = any, D = any>(
+  fn: (...args: any) => F,
+  apiName: T,
+  config: UseApiConfig<D> = {},
 ) => {
-  const { defaultData, responseAdapter, throwError = false } = config;
-  const data = ref<DataType | null>(defaultData || null) as Ref<DataType>;
+  const { defaultData, responseAdapter, successCallback, failedCallback } = config;
+  const data = ref<D | null>(defaultData || null) as Ref<D>;
   const error = ref<Error | null>(null);
   const status = ref<ApiStatusValues>(IDLE);
 
@@ -27,9 +33,10 @@ export const useApi = <Type extends string, DataType = any>(
       status.value = PENDING;
       const response = await fn(...args);
       data.value = typeof responseAdapter === 'function' ? responseAdapter(response) : response;
+      successCallback?.(data.value, args);
       status.value = SUCCESS;
     } catch (e) {
-      if (throwError) throw e;
+      failedCallback?.(e as Error);
       status.value = FAILED;
       error.value = e as Error;
     }
@@ -40,6 +47,6 @@ export const useApi = <Type extends string, DataType = any>(
     data,
     status,
     exec,
-    ...apiStatusFactory<ApiStatusFactory<Type>, Type>(apiName, status),
+    ...apiStatusFactory<ApiStatusFactory<T>, T>(apiName, status),
   };
 };

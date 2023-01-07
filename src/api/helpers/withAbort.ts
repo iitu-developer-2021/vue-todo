@@ -16,7 +16,7 @@ export const withAbort =
     }
 
     try {
-      return fn(...args.slice(args.length - 1), config);
+      return fn(...args.slice(0, args.length - 1), config);
     } catch (e) {
       if (didAbort(e)) {
         (e as any).aborted = true;

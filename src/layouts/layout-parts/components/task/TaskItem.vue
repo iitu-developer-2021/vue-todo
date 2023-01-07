@@ -9,9 +9,10 @@
       <TaskColor class="task-item__color" :color="color" />
     </slot>
     <p class="task-item__text">{{ name }}</p>
-    <button class="task-item__delete" @click.prevent="$emit('deleteTask')">
+    <button class="task-item__delete" @click.prevent="$emit('deleteTask')" v-if="!loading">
       <BaseSvgIcon name="only-close" width="12px" height="12px" />
     </button>
+    <BaseLoader v-else inner width="15px" height="15px" />
   </component>
 </template>
 <script lang="ts">
@@ -37,6 +38,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     TaskColor,
@@ -52,6 +57,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   position: relative;
+  height: 40px;
 
   &__color {
     width: 10px;

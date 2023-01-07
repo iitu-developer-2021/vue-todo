@@ -1,24 +1,16 @@
+import axios from './index';
 import type { Task } from '@/layouts/layout-parts/components/task/types/task';
 
-export const getTasks = () => {
-  return new Promise<{ data: { tasks: Task[] } }>((resolve) => {
+const URLS = {
+  tasks: '/tasks',
+};
+
+export const getTasks = <T>(config = {}) => axios.get<T>(URLS.tasks, config);
+export const addTask = (payload: Task, config = {}) => axios.post(URLS.tasks, payload, config);
+export const deleteTask = (taskId: string, config = {}) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      resolve({
-        data: {
-          tasks: [
-            {
-              id: '1',
-              color: 'red',
-              name: 'Frontend development',
-            },
-            {
-              id: '1',
-              color: 'pink',
-              name: 'Frontend development and test',
-            },
-          ],
-        },
-      });
+      resolve(axios.delete(URLS.tasks + '/' + taskId, config));
     }, 5000);
   });
 };

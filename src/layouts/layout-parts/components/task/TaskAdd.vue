@@ -1,21 +1,71 @@
 <template>
-  <div class="add-task">
-    <button class="add-task__btn">
+  <div class="add-task" :ref="(el) => (addPanelElement = el)">
+    <button class="add-task__btn" @click.prevent="setShowOn">
       <BaseSvgIcon name="plus" width="10px" height="10px" color="#868686" />
       <span>{{ text }}</span>
     </button>
-    <TaskAddPanel class="add-task__panel" />
+    <TaskAddPanel
+      v-if="show"
+      v-model="task.name"
+      v-model:chosen-color="task.color"
+      @closeAddPanel="onCloseAddPanel"
+      @addTask="onAddTask"
+      class="add-task__panel"
+      :add-task-loading="fetchAddTaskLoading"
+    />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
+import { useToggleState } from '@/composables/useToggleState';
+import { useTaskList } from '@/layouts/layout-parts/components/task/composables/useTaskList';
+import { useOutsideClick } from '@/composables/useOutsideClick';
 import TaskAddPanel from '@/layouts/layout-parts/components/task/TaskAddPanel.vue';
+import type { Ref } from 'vue';
 
 export default defineComponent({
   props: {
     text: {
       type: String,
       default: 'Добавить папку',
+    },
+  },
+  setup() {
+    const { show, setShowOn, setShowOff } = useToggleState();
+    const { fetchAddTask, fetchAddTaskLoading, getDefaultTask } = useTaskList();
+
+    const task = ref(getDefaultTask());
+    const clearTask = () => (task.value = getDefaultTask());
+
+    const onAddTask = async () => {
+      await fetchAddTask({ ...task.value });
+      clearTask();
+    };
+
+    const onCloseAddPanel = () => {
+      setShowOff();
+      clearTask();
+    };
+
+    const addPanelElement = ref<HTMLElement>();
+
+    useOutsideClick(addPanelElement as Ref<HTMLElement>, () => {
+      onCloseAddPanel();
+    });
+
+    return {
+      show,
+      task,
+      setShowOn,
+      onCloseAddPanel,
+      onAddTask,
+      fetchAddTaskLoading,
+      addPanelElement,
+    };
+  },
+  methods: {
+    onOutsideClick() {
+      console.log('called outside');
     },
   },
   components: {

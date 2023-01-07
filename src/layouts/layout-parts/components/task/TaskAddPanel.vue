@@ -1,12 +1,14 @@
 <template>
   <div class="task-panel">
     <BaseInput
+      :value="modelValue"
+      @input="onUpdateModelValue($event.target.value)"
       placeholder="Название папки"
       class="task-panel__input"
-      :value="taskName"
-      @input="taskName = $event.target.value"
     />
-    <BaseSvgIcon name="close" class="task-panel__close" width="25px" height="25px" />
+
+    <BaseSvgIcon name="close" class="task-panel__close" width="25px" height="25px" @click="$emit('closeAddPanel')" />
+
     <div class="task-panel__colors">
       <TaskColor
         v-for="(taskColorKey, index) in Object.keys(TASK_ITEM_COLORS)"
@@ -14,37 +16,66 @@
         :color="taskColorKey"
         width="20px"
         height="20px"
+        :is-active="localChosenColor === taskColorKey"
+        @click="onUpdateCloseValue(taskColorKey)"
         is-cursor-pointer
       />
     </div>
-    <BaseButton @click="onAddTask">Добавить</BaseButton>
+
+    <BaseButton @click="$emit('addTask')" :disabled="!localChosenColor || !modelValue" :loading="addTaskLoading"
+      >Добавить</BaseButton
+    >
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref, watchEffect } from 'vue';
 import { TASK_ITEM_COLORS } from '@/layouts/layout-parts/components/task/consts/taskItemColors';
 import TaskColor from '@/layouts/layout-parts/components/task/TaskColor.vue';
-import { useTaskList } from '@/layouts/layout-parts/components/task/composables/useTaskList';
-import { getRandomUUID } from '@/layouts/helpers/generateRandomUID';
-import { ref, unref } from 'vue';
 
 export default defineComponent({
-  setup() {
-    const { addTask } = useTaskList();
-    const taskName = ref('');
+  props: {
+    modelValue: {
+      type: String,
+      default: '',
+    },
+    chosenColor: {
+      type: String,
+      default: '',
+    },
+    addTaskLoading: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  emits: ['update:modelValue', 'update:chosenColor', 'closeAddPanel'],
+  setup(props, context) {
+    const localChosenColor = ref('');
+    const localModelValue = ref('');
 
-    const onAddTask = () => {
-      addTask({
-        id: getRandomUUID(),
-        name: taskName.value,
-        color: 'red',
-      });
+    const onUpdateModelValue = (value: string) => {
+      localModelValue.value = value;
+      context.emit('update:modelValue', value);
     };
+
+    const onUpdateCloseValue = (value: string) => {
+      localChosenColor.value = value;
+      context.emit('update:chosenColor', value);
+    };
+
+    watchEffect(() => {
+      localChosenColor.value = props.chosenColor;
+    });
+
+    watchEffect(() => {
+      localModelValue.value = props.modelValue;
+    });
 
     return {
       TASK_ITEM_COLORS,
-      onAddTask,
-      taskName,
+      localChosenColor,
+      localModelValue,
+      onUpdateModelValue,
+      onUpdateCloseValue,
     };
   },
   components: {

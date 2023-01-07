@@ -1,1 +1,1 @@
-export type CustomFunction<Params extends [] = any, ReturnType = any> = (...args: Params) => ReturnType;
+export type CustomFunction<Params extends [any] = any, ReturnType = any> = (...args: Params) => ReturnType;
