@@ -13,18 +13,22 @@
     <div :id="`label-${props.id}`" class="label">
       {{ props.label }}
     </div>
-    <BaseSvgIcon name="only-close" class="check-box__close" @click.stop="handleDbClick" />
+    <BaseSvgIcon
+      name="only-close"
+      class="check-box__close"
+      @click.stop="handleDbClick"
+    />
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 const emit = defineEmits({
   onChange: {
     type: 'change',
   },
-});
+})
 
 const props = defineProps({
   label: {
@@ -47,47 +51,47 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-});
+})
 
 const wrapperClass = computed(() => {
-  const { checked } = props;
+  const { checked } = props
   return {
     'check-box': true,
     'check-box--checked': checked,
-  };
-});
+  }
+})
 
 const iconClass = computed(() => {
-  const { checked } = props;
+  const { checked } = props
   return {
     'check-box__icon': true,
     'check-box__icon--checked': checked,
-  };
-});
+  }
+})
 
 const deletableClass = computed(() => {
-  const { deletable } = props;
+  const { deletable } = props
   return {
     'check-box--deletable': deletable,
-  };
-});
+  }
+})
 
 const handleClick = () => {
-  emit('onChange', props.id);
-};
+  emit('onChange', props.id)
+}
 
 const handleDbClick = () => {
-  emit('onDelete', props.id);
-};
+  emit('onDelete', props.id)
+}
 </script>
 <style scoped lang="scss">
 .check-box {
-  align-items: center;
+  align-items: flex-start;
   border: 1px solid transparent;
   cursor: pointer;
   display: flex;
   justify-content: flex-start;
-  padding: 0.5rem;
+  padding: 10px 0;
   user-select: none;
   position: relative;
 
@@ -99,16 +103,20 @@ const handleDbClick = () => {
     display: block;
 
     svg {
-      height: 20px;
-      width: 20px;
+      height: 22px;
+      width: 22px;
       display: block;
+
+      use {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 
   &__close {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 15px;
     right: 5px;
     width: 15px;
     height: 15px;
@@ -117,8 +125,7 @@ const handleDbClick = () => {
 }
 
 .label {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 0 18px;
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;

@@ -18,9 +18,9 @@
   </component>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import type { TaskItemColorKeys } from '@/layouts/components/task/consts/taskItemColors';
-import TaskColor from '@/layouts/components/task/components/TaskColor.vue';
+import { defineComponent, PropType } from 'vue'
+import type { TaskItemColorKeys } from '../consts/taskItemColors'
+import TaskColor from './TaskColor.vue'
 
 export default defineComponent({
   props: {
@@ -52,7 +52,7 @@ export default defineComponent({
   components: {
     TaskColor,
   },
-});
+})
 </script>
 <style lang="scss" scoped>
 .task-item {

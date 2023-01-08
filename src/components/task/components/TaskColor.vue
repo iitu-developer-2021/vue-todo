@@ -1,11 +1,16 @@
 <template>
-  <component :is="tag" class="task-color" :style="taskColorStyle" :class="{ 'task-color--active': isActive }" />
+  <component
+    :is="tag"
+    class="task-color"
+    :style="taskColorStyle"
+    :class="{ 'task-color--active': isActive }"
+  />
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
-import type { PropType } from 'vue';
-import type { TaskItemColorKeys } from '@/layouts/components/task/consts/taskItemColors';
-import { TASK_ITEM_COLORS } from '@/layouts/components/task/consts/taskItemColors';
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
+import type { TaskItemColorKeys } from '../consts/taskItemColors'
+import { TASK_ITEM_COLORS } from '../consts/taskItemColors'
 
 export default defineComponent({
   props: {
@@ -40,12 +45,12 @@ export default defineComponent({
       width: props.width,
       height: props.height,
       cursor: props.isCursorPointer ? 'pointer' : 'auto',
-    };
+    }
     return {
       taskColorStyle,
-    };
+    }
   },
-});
+})
 </script>
 <style lang="scss" scoped>
 .task-color {

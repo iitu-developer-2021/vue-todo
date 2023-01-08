@@ -1,15 +1,15 @@
-import { createApp } from 'vue';
-import { router } from './router';
-import { registerComponents } from '@/helpers/registerComponents';
-import { loadPlugins, loadDirectives } from '@/helpers/loadDependency';
-import './styles/style.css';
-import 'virtual:svg-icons-register';
-import App from './App.vue';
+import { createApp } from 'vue'
+import { router } from './router'
+import { registerComponents } from '@/helpers/registerComponents'
+import { loadPlugins, loadDirectives } from '@/helpers/loadDependency'
+import './styles/style.css'
+import 'virtual:svg-icons-register'
+import App from './App.vue'
 
-export const app = createApp(App);
+export const app = createApp(App)
 
-registerComponents(app);
-loadPlugins(['toast']);
-loadDirectives(['autofocus']);
+registerComponents(app)
+loadPlugins(['toast', 'pinia'])
+loadDirectives(['autofocus'])
 
-app.use(router).mount('#app');
+app.use(router).mount('#app')

@@ -1,14 +1,39 @@
 <template>
   <div class="base-input">
-    <input type="text" v-bind="$attrs" class="base-input__element" />
+    <input
+      type="text"
+      v-bind="$attrs"
+      class="base-input__element"
+      :style="style"
+    />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   inheritAttrs: false,
-});
+  props: {
+    width: {
+      type: String,
+      default: '100%',
+    },
+    height: {
+      type: String,
+      default: 'initial',
+    },
+  },
+  setup(props) {
+    const style = {
+      width: props.width,
+      height: props.height,
+    }
+
+    return {
+      style,
+    }
+  },
+})
 </script>
 <style lang="scss" scoped>
 .base-input {

@@ -16,12 +16,12 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { useToggleState } from '@/composables/useToggleState';
-import { useTaskList } from '@/layouts/components/task/composables/useTaskList';
-import { useOutsideClick } from '@/composables/useOutsideClick';
-import TaskAddPanel from '@/layouts/components/task/components/TaskAddPanel.vue';
-import type { Ref } from 'vue';
+import { defineComponent, ref } from 'vue'
+import { useToggleState } from '@/composables/useToggleState'
+import { useTaskStore } from '@/store/task'
+import { useOutsideClick } from '@/composables/useOutsideClick'
+import TaskAddPanel from './components/TaskAddPanel.vue'
+import type { Ref } from 'vue'
 
 export default defineComponent({
   props: {
@@ -31,27 +31,27 @@ export default defineComponent({
     },
   },
   setup() {
-    const { show, setShowOn, setShowOff } = useToggleState();
-    const { fetchAddTask, fetchAddTaskLoading, getDefaultTask } = useTaskList();
+    const { show, setShowOn, setShowOff } = useToggleState()
+    const taskStore = useTaskStore()
 
-    const task = ref(getDefaultTask());
-    const clearTask = () => (task.value = getDefaultTask());
+    const task = ref(taskStore.getDefaultTask())
+    const clearTask = () => (task.value = taskStore.getDefaultTask())
 
     const onAddTask = async () => {
-      await fetchAddTask({ ...task.value });
-      clearTask();
-    };
+      await taskStore.fetchAddTask({ ...task.value })
+      clearTask()
+    }
 
     const onCloseAddPanel = () => {
-      setShowOff();
-      clearTask();
-    };
+      setShowOff()
+      clearTask()
+    }
 
-    const addPanelElement = ref<HTMLElement>();
+    const addPanelElement = ref<HTMLElement>()
 
     useOutsideClick(addPanelElement as Ref<HTMLElement>, () => {
-      onCloseAddPanel();
-    });
+      onCloseAddPanel()
+    })
 
     return {
       show,
@@ -59,19 +59,14 @@ export default defineComponent({
       setShowOn,
       onCloseAddPanel,
       onAddTask,
-      fetchAddTaskLoading,
+      fetchAddTaskLoading: taskStore.fetchAddTaskLoading,
       addPanelElement,
-    };
-  },
-  methods: {
-    onOutsideClick() {
-      console.log('called outside');
-    },
+    }
   },
   components: {
     TaskAddPanel,
   },
-});
+})
 </script>
 <style lang="scss" scoped>
 .add-task {

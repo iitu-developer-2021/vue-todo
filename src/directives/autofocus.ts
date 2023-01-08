@@ -1,7 +1,8 @@
-import { app } from '@/main';
+import { app } from '@/main'
 
 app.directive('autofocus', {
   mounted(el) {
-    el.focus();
+    console.log('called autofocus', el)
+    el.focus()
   },
-});
+})

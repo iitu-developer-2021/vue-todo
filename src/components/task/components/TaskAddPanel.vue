@@ -7,7 +7,7 @@
       class="task-panel__input"
     />
 
-    <BaseSvgIcon name="close" class="task-panel__close" width="25px" height="25px" @click="$emit('closeAddPanel')" />
+    <BaseSvgIcon name="close" class="task-panel__close" @click="$emit('closeAddPanel')" />
 
     <div class="task-panel__colors">
       <TaskColor
@@ -22,15 +22,19 @@
       />
     </div>
 
-    <BaseButton @click="$emit('addTask')" :disabled="!localChosenColor || !modelValue" :loading="addTaskLoading"
-      >Добавить</BaseButton
+    <BaseButton
+      @click="$emit('addTask')"
+      :disabled="!localChosenColor || !modelValue"
+      :loading="addTaskLoading"
     >
+      Добавить
+    </BaseButton>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue';
-import { TASK_ITEM_COLORS } from '@/layouts/components/task/consts/taskItemColors';
-import TaskColor from '@/layouts/components/task/components/TaskColor.vue';
+import { defineComponent, ref, watchEffect } from 'vue'
+import { TASK_ITEM_COLORS } from '../consts/taskItemColors'
+import TaskColor from './TaskColor.vue'
 
 export default defineComponent({
   props: {
@@ -49,26 +53,26 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'update:chosenColor', 'closeAddPanel'],
   setup(props, context) {
-    const localChosenColor = ref('');
-    const localModelValue = ref('');
+    const localChosenColor = ref('')
+    const localModelValue = ref('')
 
     const onUpdateModelValue = (value: string) => {
-      localModelValue.value = value;
-      context.emit('update:modelValue', value);
-    };
+      localModelValue.value = value
+      context.emit('update:modelValue', value)
+    }
 
     const onUpdateCloseValue = (value: string) => {
-      localChosenColor.value = value;
-      context.emit('update:chosenColor', value);
-    };
+      localChosenColor.value = value
+      context.emit('update:chosenColor', value)
+    }
 
     watchEffect(() => {
-      localChosenColor.value = props.chosenColor;
-    });
+      localChosenColor.value = props.chosenColor
+    })
 
     watchEffect(() => {
-      localModelValue.value = props.modelValue;
-    });
+      localModelValue.value = props.modelValue
+    })
 
     return {
       TASK_ITEM_COLORS,
@@ -76,12 +80,12 @@ export default defineComponent({
       localModelValue,
       onUpdateModelValue,
       onUpdateCloseValue,
-    };
+    }
   },
   components: {
     TaskColor,
   },
-});
+})
 </script>
 <style lang="scss" scoped>
 .task-panel {
@@ -97,6 +101,8 @@ export default defineComponent({
     top: -8px;
     right: -8px;
     cursor: pointer;
+    width: 25px;
+    height: 25px;
   }
 
   &__colors {

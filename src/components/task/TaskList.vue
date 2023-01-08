@@ -1,7 +1,12 @@
 <template>
   <div>
     <ul class="task-list">
-      <TaskItem name="Все задачи" class="task-list__all" v-if="tasks && tasks.length > 0" to="/main/all">
+      <TaskItem
+        name="Все задачи"
+        class="task-list__all"
+        v-if="tasks && tasks.length > 0"
+        to="/main/all"
+      >
         <BaseSvgIcon name="list" width="12px" height="12px" />
       </TaskItem>
     </ul>
@@ -22,25 +27,36 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
-import TaskItem from '@/layouts/components/task/components/TaskItem.vue';
-import { useTaskList } from '@/layouts/components/task/composables/useTaskList';
+import { defineComponent } from 'vue'
+import TaskItem from './components/TaskItem.vue'
+import { useTaskStore } from '@/store/task'
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
   async setup() {
-    const { tasks, fetchTasks, fetchDeleteTask, fetchDeleteTaskLoadingList } = useTaskList();
-    await fetchTasks();
+    const route = useRoute()
+    const router = useRouter()
+
+    const taskStore = useTaskStore()
+    await taskStore.fetchTasks()
+
+    const onFetchDeleteTask = async (taskId: string) => {
+      await taskStore.fetchDeleteTask(taskId)
+      if (route.params.id === taskId) {
+        await router.push('/main')
+      }
+    }
 
     return {
-      tasks,
-      fetchDeleteTask,
-      fetchDeleteTaskLoadingList,
-    };
+      tasks: taskStore.tasks,
+      fetchDeleteTask: onFetchDeleteTask,
+      fetchDeleteTaskLoadingList: taskStore.fetchDeleteTaskLoadingList,
+    }
   },
   components: {
     TaskItem,
   },
-});
+})
 </script>
 <style lang="scss" scoped>
 .task-list {

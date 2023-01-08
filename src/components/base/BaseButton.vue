@@ -1,13 +1,19 @@
 <template>
-  <component :is="tag" v-bind="$attrs" class="button" :class="btnClasses" :style="btnStyles">
+  <component
+    :is="tag"
+    v-bind="$attrs"
+    class="button"
+    :class="btnClasses"
+    :style="btnStyles"
+  >
     <slot v-if="!loading" />
     <BaseLoader v-else width="30px" height="30px" inner />
   </component>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
-import type { PropType } from 'vue';
-import BaseLoader from '@/components/base/BaseLoader.vue';
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
+import BaseLoader from '@/components/base/BaseLoader.vue'
 
 export default defineComponent({
   components: { BaseLoader },
@@ -20,7 +26,7 @@ export default defineComponent({
       type: String as PropType<'green' | 'gray'>,
       default: 'green',
       validators: (value: string) => {
-        return ['green', 'gray'].includes(value);
+        return ['green', 'gray'].includes(value)
       },
     },
     width: {
@@ -38,20 +44,20 @@ export default defineComponent({
   },
   computed: {
     btnClasses() {
-      const classes = [];
-      if (this.buttonType === 'green') classes.push('button--green');
-      if (this.buttonType === 'gray') classes.push('button--gray');
-      if (this.loading) classes.push('button--loading');
-      return classes;
+      const classes = []
+      if (this.buttonType === 'green') classes.push('button--green')
+      if (this.buttonType === 'gray') classes.push('button--gray')
+      if (this.loading) classes.push('button--loading')
+      return classes
     },
     btnStyles() {
       return {
         width: this.width,
         height: this.height,
-      };
+      }
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>
@@ -91,11 +97,11 @@ export default defineComponent({
     color: $buttonSecondaryTextColor;
 
     &:hover {
-      background: lighten($buttonSecondaryBackgroundColor, 3%);
+      background: darken($buttonSecondaryBackgroundColor, 3%);
     }
 
     &:disabled {
-      background: lighten($buttonSecondaryBackgroundColor, 9%);
+      background: lighten($buttonSecondaryBackgroundColor, 5%);
       cursor: not-allowed;
     }
   }

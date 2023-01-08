@@ -1,42 +1,74 @@
 {
   "tasks": [
     {
-      "id": "48qwck91umfv1o1mhj79fs",
-      "name": "Frontend App test",
+      "id": "hzfj57zlferxb6j0ndqlgr",
+      "name": "Сделать домашку",
       "color": "lightGreen"
     },
     {
-      "id": "40o0pwna0oshoabrkffd8s",
-      "name": "Frontend app ",
-      "color": "pink"
+      "id": "hf2ekzxtmye2qxs4hm4m4g",
+      "name": "Сделать домашку",
+      "color": "black"
     },
     {
-      "id": "pi2jmkw3u7rs5j8afljw",
-      "name": "My frontend app test",
-      "color": "pink"
+      "id": "exrs41mbuvl4zztu5qj0h2",
+      "name": "Task",
+      "color": "gray"
     },
     {
-      "id": "ff2oqeqt2t870trgflyo3w",
-      "name": "TaskApp",
-      "color": "violet"
-    },
-    {
-      "id": "rp4n5miqdib0mzh2rp5l0cm",
-      "name": "ghgl",
+      "id": "bo0y7vj4alqnak21tum5d",
+      "name": "test app",
       "color": "blue"
-    },
-    {
-      "id": "2mtjuj0xnvy7e1ijkvo677",
-      "name": "My app",
-      "color": "violet"
     }
   ],
   "taskItems": [
     {
-      "id": 1,
+      "id": "1h36e42lo63ie2m5hilkij",
       "done": true,
-      "text": "Купить какие то штуки",
-      "taskId": "48qwck91umfv1o1mhj79fs"
+      "taskId": "hf2ekzxtmye2qxs4hm4m4g",
+      "text": "Second app Task"
+    },
+    {
+      "id": "3y7mprwpnh6sqju3uocxc",
+      "done": false,
+      "taskId": "hf2ekzxtmye2qxs4hm4m4g",
+      "text": "Second app task 2"
+    },
+    {
+      "id": "rpi0htugexpaasny9trc",
+      "done": false,
+      "taskId": "hf2ekzxtmye2qxs4hm4m4g",
+      "text": "Second app task3"
+    },
+    {
+      "id": "p1idxqpqxxv3u6efo257b",
+      "done": true,
+      "taskId": "hzfj57zlferxb6j0ndqlgr",
+      "text": "Test app"
+    },
+    {
+      "id": "1qn6iybg25y86yrdmcbc3a",
+      "done": true,
+      "taskId": "hzfj57zlferxb6j0ndqlgr",
+      "text": "Tesp app 2"
+    },
+    {
+      "id": "2bbmlv4id9kngl733r8qzo",
+      "done": true,
+      "taskId": "hzfj57zlferxb6j0ndqlgr",
+      "text": "Tesp app 3"
+    },
+    {
+      "id": "xv1qe2qfdkt1z8vm10kg9",
+      "done": true,
+      "taskId": "hzfj57zlferxb6j0ndqlgr",
+      "text": "test app"
+    },
+    {
+      "id": "ezioyej1pklhl7oc67oub",
+      "done": true,
+      "taskId": "hzfj57zlferxb6j0ndqlgr",
+      "text": "my app"
     }
   ]
 }

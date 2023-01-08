@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
@@ -14,7 +14,7 @@ export default defineComponent({
     },
   },
   inheritAttrs: false,
-});
+})
 </script>
 <style lang="scss" scoped>
 .loader-global {
